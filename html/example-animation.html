@@ -24,7 +24,6 @@
 
     function go() {
 
-        console.log("hello");
         // Setup GeoGebra
         var parameters = {
             "id": "ggbApplet",
@@ -67,14 +66,13 @@
             ggbApplet.setVisible("n", false);
             ggbApplet.evalCommand("ZoomIn(lx,by,rx,ty)");
             ggbApplet.startAnimation();
-
             // Create the construction
-
             // 1. Create the regular polygon
             ggbApplet.evalCommand("A=(0,0)");
             ggbApplet.evalCommand("B=(1,0)");
             ggbApplet.evalCommand("poly1=Polygon(A,B,5)");
             ggbApplet.setLabelVisible("poly1", false);
+
             // 2. Rename vertices to A_{1}, ..., A_{5}
             for (var i = 1; i <= 5; ++i) {
                 var letter = String.fromCharCode(64 + i);

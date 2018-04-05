@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <title>Voronoi diagram</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="navigation.js"></script>
+
+</head>
+<body onload="go()">
+
+<div>
+    <h1>Voronoi diagram</h1>
+    <p style="width:800px">A <a href="https://en.wikipedia.org/wiki/Voronoi_diagram">Voronoi diagram</a>
+        is a partitioning of a plane into regions
+        based on distance to points in a specific subset of the plane.</p>
+
+    <div id="applet_container"></div>
+
+</div>
+
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+
+<script type='text/javascript'>
+
+    function go() {
+
+        // Setup GeoGebra
+        var parameters = {
+            "id": "ggbApplet",
+            "width": 800,
+            "height": 480,
+            "showToolBar": false,
+            "borderColor": null,
+            "showMenuBar": true,
+            "allowStyleBar": false,
+            "showAlgebraInput": false,
+            "enableLabelDrags": true,
+            "enableShiftDragZoom": true,
+            "capturingThreshold": null,
+            "showToolBarHelp": false,
+            "errorDialogsActive": false,
+            "showTutorialLink": false,
+            "showLogging": true,
+            "useBrowserForJS": false,
+            // Use the Graphics View only
+            "perspective": "G"
+        };
+
+        parameters.appletOnLoad = function (api) {
+            // This code will run after the applet has been injected.
+
+            // No axes should be shown
+            ggbApplet.setAxesVisible(1, false, false, false);
+
+            // Create the construction
+
+            // Create some points
+            var n = 30;
+            var gA = ggbApplet;
+            var list = "{";
+            for (var i = 1; i <= n; ++i) {
+                var rx = Math.random() * 2;
+                var ry = Math.random();
+                var name = "A_{" + i + "}";
+                list += name;
+                if (i < n) {
+                    list += ",";
+                }
+                gA.evalCommand(name + "=(" + rx + "," + ry + ")");
+                gA.setColor(name, 255, 0, 0);
+                gA.setLabelVisible(name, false);
+            }
+            list += "}";
+            gA.evalCommand("ZoomIn(-0.2,-0.2,2.2,1.2)");
+            gA.evalCommand("Voronoi(" + list + ")");
+        };
+
+        // Inject applet
+        var applet = new GGBApplet(parameters, '5.0', 'applet_container');
+        applet.inject('applet_container');
+    }
+
+</script>
+
+</body>
+</html>
