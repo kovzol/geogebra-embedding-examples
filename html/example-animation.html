@@ -1,0 +1,126 @@
+<html>
+
+<head>
+        <title>Animation</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="navigation.js"></script>
+
+</head>
+<body onload="go()">
+
+<div>
+        <h1>Animation</h1>
+        <p style="width:800px">This page shows how to create a GeoGebra animation from scratch in JavaScript.
+
+            <div id="applet_container"></div>
+
+</div>
+
+
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+
+<script type='text/javascript'>
+
+    function go() {
+
+console.log("hello");
+        // Setup GeoGebra
+        var parameters = {
+            "id": "ggbApplet",
+            "width": 500,
+            "height": 580,
+            "showToolBar": true,
+            "borderColor": null,
+            "showMenuBar": true,
+            "allowStyleBar": true,
+            "showAlgebraInput": false,
+            "enableLabelDrags": true,
+            "enableShiftDragZoom": true,
+            "capturingThreshold": null,
+            "showToolBarHelp": false,
+            "errorDialogsActive": true,
+            "showTutorialLink": true,
+            "showLogging": true,
+            "useBrowserForJS": false,
+            // Use the Graphics View only
+            "perspective": "G"
+        };
+
+        parameters.appletOnLoad = function(api) {
+            // This code will run after the applet has been injected.
+
+            // Show the Move tool only
+            ggbApplet.setCustomToolBar("0");
+            // No axes should be shown
+            ggbApplet.setAxesVisible(1,false,false,false);
+            // Define the center of the zoom
+            ggbApplet.evalCommand("cx=0.5");
+            ggbApplet.evalCommand("cy=0.688190960235587");
+            // A slider controls the zoom
+            ggbApplet.evalCommand("n=Slider(1,20,0.1,1,100,false,true,true,false)");
+            ggbApplet.evalCommand("zoomsize=2^(3-n)")
+            ggbApplet.evalCommand("lx=cx-zoomsize");
+            ggbApplet.evalCommand("rx=cx+zoomsize");
+            ggbApplet.evalCommand("by=cy-zoomsize");
+            ggbApplet.evalCommand("ty=cy+zoomsize");
+            ggbApplet.setVisible("n",false);
+            ggbApplet.evalCommand("ZoomIn(lx,by,rx,ty)");
+            ggbApplet.startAnimation();
+
+            // Create the construction
+
+            // 1. Create the regular polygon
+            ggbApplet.evalCommand("A=(0,0)");
+            ggbApplet.evalCommand("B=(1,0)");
+            ggbApplet.evalCommand("poly1=Polygon(A,B,5)");
+            ggbApplet.setLabelVisible("poly1", false);
+            // 2. Rename vertices to A_{1}, ..., A_{5}
+            for (var i=1; i<=5; ++i) {
+                var letter = String.fromCharCode(64+i);
+                ggbApplet.setVisible(letter, false);
+                ggbApplet.renameObject(letter, "A_{" + i + "}");
+            }
+
+            // 2. Create all iterations of the pentagon
+            var maxiter=20;
+            for (var j=0; j<maxiter; ++j) {
+
+                // 2/1. Create diagonals
+                for (var i = 1; i <= 5; ++i) {
+                    var vertex1 = "A_{" + (i + j*5) + "}";
+                    var vertex2no = i + j*5 + 2;
+                    if (vertex2no > (j+1)*5)
+                        vertex2no -= 5;
+                    var vertex2 = "A_{" + vertex2no + "}";
+                    ggbApplet.evalCommand("Segment(" + vertex1 + "," + vertex2 + ")");
+                    var newletter = "a_{" + (i +j*5)+ "}";
+                    ggbApplet.renameObject("k", newletter);
+                    ggbApplet.setLabelVisible(newletter, false);
+                }
+
+                // 2/2. Intersections of diagonals
+                for (var i = 1; i <= 5; ++i) {
+                    var vertex1 = "a_{" + (i+j*5) + "}";
+                    var vertex2no = i +j*5+ 1;
+                    if (vertex2no > (j+1)*5)
+                        vertex2no -= 5;
+                    var vertex2 = "a_{" + vertex2no + "}";
+                    ggbApplet.evalCommand("Intersect(" + vertex1 + "," + vertex2 + ")");
+                    var newletter = "A_{" + (i +j*5 + 5) + "}";
+                    ggbApplet.setVisible("A", false);
+                    ggbApplet.renameObject("A", newletter);
+                }
+            }
+        }
+
+        // Inject applet
+        var applet = new GGBApplet(parameters, '5.0', 'applet_container');
+        applet.inject('applet_container');
+    }
+
+</script>
+
+</body>
+</html>
