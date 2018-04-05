@@ -1,0 +1,84 @@
+<html>
+
+<head>
+    <title>Minimum spanning tree</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="navigation.js"></script>
+
+</head>
+<body onload="go()">
+
+<div>
+    <h1>Minimum spanning tree</h1>
+    <p style="width:800px">A <a href="https://en.wikipedia.org/wiki/Minimum_spanning_tree">minimum spanning tree</a>
+        is a subset of the edges of a connected, edge-weighted undirected graph that
+        connects all the vertices together, without any cycles and with the minimum possible total
+        edge weight.</p>
+
+    <div id="applet_container"></div>
+
+</div>
+
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+
+<script type='text/javascript'>
+
+    function go() {
+
+        // Setup GeoGebra
+        var parameters = {
+            "id": "ggbApplet",
+            "width": 800,
+            "height": 480,
+            "showToolBar": false,
+            "borderColor": null,
+            "showMenuBar": true,
+            "allowStyleBar": false,
+            "showAlgebraInput": false,
+            "enableLabelDrags": true,
+            "enableShiftDragZoom": true,
+            "capturingThreshold": null,
+            "showToolBarHelp": false,
+            "errorDialogsActive": false,
+            "showTutorialLink": false,
+            "showLogging": true,
+            "useBrowserForJS": false,
+            // Use the Graphics View only
+            "perspective": "G"
+        };
+
+        parameters.appletOnLoad = function (api) {
+            // This code will run after the applet has been injected.
+            var n = 20;
+            var gA = ggbApplet;
+            gA.setAxesVisible(1, false, false, false);
+            gA.setGridVisible(true);
+            var list = "{";
+            for (var i = 1; i <= n; ++i) {
+                var rx = Math.floor(Math.random() * 11) / 5;
+                var ry = Math.floor(Math.random() * 6) / 5;
+                var name = "A_{" + i + "}";
+                list += name;
+                if (i < n) {
+                    list += ",";
+                }
+                gA.evalCommand(name + "=(" + rx + "," + ry + ")");
+                gA.setColor(name, 0, 192, 0);
+                gA.setLabelVisible(name, false);
+            }
+            list += "}";
+            gA.evalCommand("ZoomIn(-0.2,-0.2,2.2,1.2)");
+            gA.evalCommand("MinimumSpanningTree(" + list + ")");
+        };
+
+        // Inject applet
+        var applet = new GGBApplet(parameters, '5.0', 'applet_container');
+        applet.inject('applet_container');
+    }
+
+</script>
+
+</body>
+</html>
