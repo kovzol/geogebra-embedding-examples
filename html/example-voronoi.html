@@ -51,14 +51,10 @@
         parameters.appletOnLoad = function (api) {
             // This code will run after the applet has been injected.
 
-            // No axes should be shown
-            ggbApplet.setAxesVisible(1, false, false, false);
-
-            // Create the construction
-
-            // Create some points
             var n = 30;
+
             var gA = ggbApplet;
+            gA.setAxesVisible(1, false, false, false);
             var list = "{";
             for (var i = 1; i <= n; ++i) {
                 var rx = Math.random() * 2;
