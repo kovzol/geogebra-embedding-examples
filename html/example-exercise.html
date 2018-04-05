@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
     <title>GeoGebra exercise example</title>
-<script src="navigation.js"></script>
+    <script src="navigation.js"></script>
     <script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
 
     <style>
@@ -55,9 +54,9 @@
         };
 
         var applet = new GGBApplet(parameters, '5.0');
-              
-    //  when used with Math Apps Bundle, uncomment this:
-    //  applet.setHTML5Codebase('GeoGebra/HTML5/5.0/web/');
+
+        //  when used with Math Apps Bundle, uncomment this:
+        //  applet.setHTML5Codebase('GeoGebra/HTML5/5.0/web/');
         window.onload = function () {
             applet.inject('appletdiv')
         };
@@ -108,7 +107,7 @@
             }
             document.getElementById('feedback').appendChild(points);
 
-            document.getElementById('info').innerHTML ="";
+            document.getElementById('info').innerHTML = "";
             var resultText = document.createElement("p");
             resultText.appendChild(document.createTextNode("The output of ggbApplet.getExerciseResult() was: "));
             document.getElementById('info').appendChild(resultText);
@@ -122,59 +121,71 @@
 
 <body dir="ltr" tabindex="-1">
 <div>
-<h1>Exercise example</h1>
+    <h1>Exercise example</h1>
 
-<p>For creating an Exercise just start the "New Exercise" dialog and create or choose a "User defined Tool" which corresponds to
-    the output object the student should construct. In most cases it's best to use only the inputs suggested by the dialog but
-    if you change the input objects choose wisely and test with different possible constructions. Use the "Check" button for
-    this. If you can avoid semi-defined input object, such as point on path, chances for reliability of the test are higher.</p>
+    <p>For creating an Exercise just start the "New Exercise" dialog and create or choose a "User defined Tool" which
+        corresponds to
+        the output object the student should construct. In most cases it's best to use only the inputs suggested by the
+        dialog but
+        if you change the input objects choose wisely and test with different possible constructions. Use the "Check"
+        button for
+        this. If you can avoid semi-defined input object, such as point on path, chances for reliability of the test are
+        higher.</p>
 
-<p>If you have more than one Assignment (user defined tool) in your construction, note that the fractions just add up. This is
-    useful if there is one output which is the solution and has 100% and the other assignments are just intermediate steps
-    which are possibly wrong in the end but the solution is correct (for example if the student chose another way of constructing
-    the same object).</p>
+    <p>If you have more than one Assignment (user defined tool) in your construction, note that the fractions just add
+        up. This is
+        useful if there is one output which is the solution and has 100% and the other assignments are just intermediate
+        steps
+        which are possibly wrong in the end but the solution is correct (for example if the student chose another way of
+        constructing
+        the same object).</p>
 
-<p>As you can see in the rectangle construction below the user defined tools and the Exercises have been created using one tool
-    for the intersection point of a parallel and a perpendicular line to the Segment and one for the rectangle. If the student
-    constructs the Rectangle with a Circle and 2 Lines he will never hit the point in the construction where he has to intersect
-    two lines. In this case we want to give him full credit for the rectangle and partial credit for the intersection point. If
-    we want to force the same construction we would give him partial credit for the rectangle and the other for the intersection
-    point.</p>
+    <p>As you can see in the rectangle construction below the user defined tools and the Exercises have been created
+        using one tool
+        for the intersection point of a parallel and a perpendicular line to the Segment and one for the rectangle. If
+        the student
+        constructs the Rectangle with a Circle and 2 Lines he will never hit the point in the construction where he has
+        to intersect
+        two lines. In this case we want to give him full credit for the rectangle and partial credit for the
+        intersection point. If
+        we want to force the same construction we would give him partial credit for the rectangle and the other for the
+        intersection
+        point.</p>
 
-<div id="tests_div">
-    <div id="rectangleconst_div" class="clearboth" style="transform: none; transform-origin: 0% 0% 0px;">
-        <h2>Rectangle Construction</h2>
+    <div id="tests_div">
+        <div id="rectangleconst_div" class="clearboth" style="transform: none; transform-origin: 0 0 0;">
+            <h2>Rectangle Construction</h2>
 
-        <ol>
-            <li>Select the Segment tool and create an arbitrary segment AB.</li>
-            <li>Select the Perpendicular Line tool and create a
-                perpendicular line to segment AB through point B.
-            </li>
-            <li>Select the Point on Object tool and create a point C on the
-                perpendicular line.
-            </li>
-            <li>Select the Parallel Line tool and create a parallel line to segment AB through point C.</li>
-            <li>
-                Select the Perpendicular Line tool and create a perpendicular line to segment AB through point A.
-            </li>
-            <li>Select the
-                Intersect tool and create the intersection point D of the last two lines.
-            </li>
-            <li>Select the Polygon tool and create the
-                rectangle ABCD by successively clicking on all the vertices.
-            </li>
-        </ol>
+            <ol>
+                <li>Select the Segment tool and create an arbitrary segment AB.</li>
+                <li>Select the Perpendicular Line tool and create a
+                    perpendicular line to segment AB through point B.
+                </li>
+                <li>Select the Point on Object tool and create a point C on the
+                    perpendicular line.
+                </li>
+                <li>Select the Parallel Line tool and create a parallel line to segment AB through point C.</li>
+                <li>
+                    Select the Perpendicular Line tool and create a perpendicular line to segment AB through point A.
+                </li>
+                <li>Select the
+                    Intersect tool and create the intersection point D of the last two lines.
+                </li>
+                <li>Select the Polygon tool and create the
+                    rectangle ABCD by successively clicking on all the vertices.
+                </li>
+            </ol>
 
-        <div><input type="button" id="check_rectangleconst" value="Check exercise for current state of applet"
-                    onclick="check();">
+            <div><input type="button" id="check_rectangleconst" value="Check exercise for current state of applet"
+                        onclick="check();">
 
-            <div id="feedback" class="result_div"></div>
+                <div id="feedback" class="result_div"></div>
+            </div>
+            <div id="appletdiv"></div>
         </div>
-        <div id="appletdiv"></div>
+        <div id="info"></div>
+
     </div>
-    <div id="info"></div>
-    
-</div>
 </div>
 </body>
 </html>

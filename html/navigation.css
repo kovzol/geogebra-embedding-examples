@@ -1,40 +1,40 @@
 body{
-	font-family:'Century Gothic', 'Muli', sans-serif;
-	margin:0;
+    font-family: 'Century Gothic', 'Muli', sans-serif;
+    margin: 0;
 }
 
 body>div{
-	max-width:1000px;
-	margin:auto;
-	padding-left: 20px;
+    max-width: 1000px;
+    margin: auto;
+    padding-left: 20px;
 }
 
 input[type=button]{
-		margin:5px;
-		padding:5px;
-		border-radius:5px;
-		background-color:#FAFAFA;
-		border:#999999 1px solid;			
-	}
-	
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #FAFAFA;
+    border: #999999 1px solid;
+}
+
 #githubLink{
-	position: absolute;
-    right: 0;    
+    position: absolute;
+    right: 0;
     padding-right: 5em;
 }
 
 .sample-toolbar  a{
-	color:white;
+    color: white;
 }
 
 div.sample-toolbar {
-	max-width:inherit;
+    max-width: inherit;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1;
     box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-	display: -webkit-box;
+    display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     position: relative;
@@ -51,73 +51,85 @@ div.sample-toolbar {
     background-color: #3f51b5;
 }
 
-#drawer{	
-	display:none;
-	height: calc(100% - 84px);
+#drawer {
+    display: none;
+    height: calc(100% - 84px);
     background-color: white;
     position: absolute;
     z-index: 2000;
     left: 0;
     transform: translateX(0);
     padding: 10px;
-	animation-name:animDrawer;
-	animation-duration:0.2s;
+    animation-name: animDrawer;
+    animation-duration: 0.2s;
 }
 #drawer.animateOut{
     animation-name:animDrawerOut;
 }
 
 .sample-toolbar a, #drawer a{
-	text-decoration:none;
+    text-decoration: none;
 }
 
 #drawer ul{
-	list-style:none;
-	padding-left:10px;
+    list-style: none;
+    padding-left: 10px;
 }
 #drawer li{
-	padding-bottom:8px;
+    padding-bottom: 8px;
 }
 
 #drawer a{
-	color:rgba(0,0,0,.87);
-	font-weight: 500;
+    color: rgba(0, 0, 0, .87);
+    font-weight: 500;
 }
 
 #drawerGlass{
-	max-width:inherit;
-	display:none;
-	height: calc(100% - 84px);
-	width:100%;
+    max-width: inherit;
+    display: none;
+    height: calc(100% - 84px);
+    width: 100%;
     background-color: gray;
     position: absolute;
     z-index: 1500;
     left: 0;
     padding: 10px;
-	opacity:0.6;
-	animation-name:animGlass;
-	animation-duration:0.2s;
+    opacity: 0.6;
+    animation-name: animGlass;
+    animation-duration: 0.2s;
 }
 #drawerGlass.animateOut{
     animation-name:animGlassOut;
 }
 
 @keyframes animGlass {
-	0% {opacity:0;}
-	100% {opacity: 0.6;}
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0.6;
+    }
 }
 
 @keyframes animGlassOut {
     0% {opacity: 0.6;}
-	100% {opacity:0;}	
+    100% {
+        opacity: 0;
+    }
 }
 
 @keyframes animDrawer {
-	0% {transform: translateX(-100%);}
-	100% {transform: translateX(0);}
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 @keyframes animDrawerOut {
-	0% {transform: translateX(0);}
+    0% {
+        transform: translateX(0);
+    }
     100% {transform: translateX(-100%);}
 }
 
@@ -130,7 +142,7 @@ a.btn,a.btns{
     color: #000;
     opacity: 0.85;
     background-color: #eee;
-    display:inline-block;    
+    display: inline-block;
     box-shadow: 0 3px 3px 0 rgba(0,0,0,.14), 0 1px 7px 0 rgba(0,0,0,.12), 0 3px 1px -1px rgba(0,0,0,.2);
     background-repeat:no-repeat;
     background-position:7px 7px;
