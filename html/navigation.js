@@ -30,7 +30,8 @@ function addDrawer(){
         '<li> <a href="example-exercise.html">Exercise</a></li>' +
         '<li> <a href="example-animation.html">Animation</a></li>' +
         '<li> <a href="example-voronoi.html">Voronoi diagram</a></li>' +
-        '<li> <a href="example-minimum-spanning-tree.html">Minimum spanning tree</a></li></ul>' +
+        '<li> <a href="example-minimum-spanning-tree.html">Minimum spanning tree</a></li>' +
+        '<li> <a href="example-provedetails.html">ProveDetails</a></li></ul>' +
 
         '<h4>Documentation</h4><ul><li><a href="https://www.geogebra.org/manual/en/Reference:GeoGebra_Apps_Embedding">GeoGebra Apps Embedding</a></li>' +
         '<li><a href="https://www.geogebra.org/manual/en/Reference:JavaScript">JavaScript API</a></li></ul>';

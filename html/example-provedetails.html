@@ -1,0 +1,104 @@
+<html>
+
+<head>
+    <title>ProveDetails</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script src="navigation.js"></script>
+
+</head>
+<body onload="go()">
+
+<div>
+    <h1>ProveDetails</h1>
+    <p style="width:800px">This example shows how to force loading the embedded Giac
+    computer algebra system and prove a basic planar geometry theorem.
+        Please wait a few seconds until Giac is loaded.</p>
+    <p style="width:800px">Then an alert window
+    will appear with the result on the question <i>"Are the
+        perpendicular bisectors of the sides in a triangle concurrent in general?"</i>.
+    Finally the Relation tool will be shown, where, by clicking on <i>More...</i>
+    a more user-friendly answer can be obtained.</p>
+
+    <div id="applet_container"></div>
+
+</div>
+
+<script type="text/javascript" src="https://cdn.geogebra.org/apps/deployggb.js"></script>
+
+<script type='text/javascript'>
+
+    function go() {
+
+        // 1. Setup GeoGebra
+        var parameters = {
+            "id": "ggbApplet",
+            "width": 800,
+            "height": 480,
+            "showToolBar": false,
+            "borderColor": null,
+            "showMenuBar": true,
+            "allowStyleBar": false,
+            "showAlgebraInput": false,
+            "enableLabelDrags": true,
+            "enableShiftDragZoom": true,
+            "capturingThreshold": null,
+            "showToolBarHelp": false,
+            "errorDialogsActive": false,
+            "showTutorialLink": false,
+            "showLogging": true,
+            "useBrowserForJS": false,
+            // Use the Graphics View only
+            "perspective": "AG"
+        };
+
+        parameters.appletOnLoad = function (api) {
+            // This code will run after the applet has been injected.
+
+            // 3. Create initial objects
+            gA = ggbApplet;
+            gA.setAxesVisible(1, false, false, false);
+            gA.evalCommand("A=(-1,1)");
+            gA.evalCommand("B=(5,2)");
+            gA.evalCommand("C=(3,4)");
+            gA.evalCommand("t=Polygon(A,B,C)");
+            gA.evalCommand("d=PerpendicularBisector(B,C)");
+            gA.evalCommand("e=PerpendicularBisector(C,A)");
+            gA.evalCommand("f=PerpendicularBisector(A,B)");
+
+            // 4. Redefine console.log to capture notifications from GeoGebra later
+            console.Log = console.log
+            console.log = function(msg) {
+                console.Log("ggbApplet: " + msg);
+                // 6. Catch notification when Giac is up
+                if (msg.endsWith("all CAS up")) {
+                    console.Log("Giac has been successfully loaded");
+                    // 7. Revert back to the original definition
+                    console.log = console.Log;
+                    // 8. Continue with the heavy computations
+                    prove();
+                }
+            }
+
+            // 5. Force Giac to load
+            gA.evalCommandCAS("1+2");
+        };
+
+        // 2. Inject applet
+        var applet = new GGBApplet(parameters, '5.0', 'applet_container');
+        applet.inject('applet_container');
+    }
+
+    function prove() {
+        // 9. Do heavy computations
+        gA.evalCommand("p=ProveDetails(AreConcurrent(d,e,f))");
+        var proofresult = gA.getValueString("p");
+        alert("The result of the proof is " + proofresult + ".");
+        gA.evalCommand("Relation({d,e,f})");
+    }
+
+</script>
+
+</body>
+</html>
