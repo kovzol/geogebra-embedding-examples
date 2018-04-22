@@ -67,22 +67,9 @@
             gA.evalCommand("e=PerpendicularBisector(C,A)");
             gA.evalCommand("f=PerpendicularBisector(A,B)");
 
-            // 4. Redefine console.log to capture notifications from GeoGebra later
-            console.Log = console.log
-            console.log = function(msg) {
-                console.Log("ggbApplet: " + msg);
-                // 6. Catch notification when Giac is up
-                if (msg.endsWith("all CAS up")) {
-                    console.Log("Giac has been successfully loaded");
-                    // 7. Revert back to the original definition
-                    console.log = console.Log;
-                    // 8. Continue with the heavy computations
-                    prove();
-                }
-            }
-
-            // 5. Force Giac to load
-            gA.evalCommandCAS("1+2");
+            // 4. Register listener to show the result when it is computed
+            gA.registerUpdateListener("showResult");
+            gA.evalCommand("p=ProveDetails(AreConcurrent(d,e,f))");
         };
 
         // 2. Inject applet
@@ -90,12 +77,17 @@
         applet.inject('applet_container');
     }
 
-    function prove() {
-        // 9. Do heavy computations
-        gA.evalCommand("p=ProveDetails(AreConcurrent(d,e,f))");
-        var proofresult = gA.getValueString("p");
-        alert("The result of the proof is " + proofresult + ".");
-        gA.evalCommand("Relation({d,e,f})");
+    function showResult(object) {
+        // 5. Show the result
+        if (object == "p") {
+            // 6. Remove this listener
+            gA.unregisterUpdateListener("showResult");
+            var proofresult = gA.getValueString("p");
+            alert("The result of the proof is " + proofresult + ".");
+
+            // 7. Do further steps if required
+            gA.evalCommand("Relation({d,e,f})");
+        }
     }
 
 </script>
