@@ -56,7 +56,7 @@
         parameters.appletOnLoad = function (api) {
             // This code will run after the applet has been injected.
 
-            // 3. Create initial objects
+            // 3. Create initial objects (this could be done later as well)
             gA = ggbApplet;
             gA.setAxesVisible(1, false, false, false);
             gA.evalCommand("A=(-1,1)");
@@ -67,9 +67,23 @@
             gA.evalCommand("e=PerpendicularBisector(C,A)");
             gA.evalCommand("f=PerpendicularBisector(A,B)");
 
-            // 4. Register listener to show the result when it is computed
-            gA.registerUpdateListener("showResult");
-            gA.evalCommand("p=ProveDetails(AreConcurrent(d,e,f))");
+            // 4. To do CAS computations, the CAS must be loaded somehow.
+            // There are multiple ways to do that. The best way is
+            // to call the CAS implicitly and the computation result is
+            // collected into a dummy variable.
+            gA.evalCommand("dummy=Factor(x^2+x)");
+            gA.setVisible("dummy", false);
+            // There is a quick result in the dummy variable, "undefined",
+            // but the CAS is starting to be loaded in the background,
+            // asynchronously. However, the immediate result of the command
+            // is synchronous, that is, it is obtained immediately after
+            // evalCommand is performed.
+
+            // 5. Register a listener to be informed on the final result
+            // when the dummy variable is computed. On the finished computation
+            // the dummy variable will be updated and the listener will
+            // be notified.
+            gA.registerUpdateListener("go_heavy");
         };
 
         // 2. Inject applet
@@ -77,15 +91,20 @@
         applet.inject('applet_container');
     }
 
-    function showResult(object) {
-        // 5. Show the result
-        if (object == "p") {
-            // 6. Remove this listener
-            gA.unregisterUpdateListener("showResult");
+    function go_heavy(object) {
+        // 6. This is called when the dummy object has been updated
+        // on completion of the dummy computation.
+        if (object == "dummy") {
+            // 7. Remove this listener to avoid re-launching this code.
+            gA.unregisterUpdateListener("go_heavy");
+            // 8. Start real computations. Note that all evalCommand
+            // computations are synchronous, that is, from this point on
+            // no asynchronous code must be written.
+            gA.evalCommand("p=ProveDetails(AreConcurrent(d,e,f))");
             var proofresult = gA.getValueString("p");
             alert("The result of the proof is " + proofresult + ".");
 
-            // 7. Do further steps if required
+            // 9. Do further commands if required...
             gA.evalCommand("Relation({d,e,f})");
         }
     }
